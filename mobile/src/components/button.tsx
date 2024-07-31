@@ -1,22 +1,24 @@
-import { createContext, useContext } from "react"
-
+import { createContext, useContext } from "react";
 import {
   Text,
   TextProps,
   TouchableOpacity,
   ActivityIndicator,
   TouchableOpacityProps,
-} from "react-native"
-import clsx from "clsx"
+  Pressable,
+  PressableProps,
+  View,
+} from "react-native";
+import clsx from "clsx";
 
-type Variants = "primary" | "secondary"
+type Variants = "primary" | "secondary";
 
 type ButtonProps = TouchableOpacityProps & {
-  variant?: Variants
-  isLoading?: boolean
-}
+  variant?: Variants;
+  isLoading?: boolean;
+};
 
-const ThemeContext = createContext<{ variant?: Variants }>({})
+const ThemeContext = createContext<{ variant?: Variants }>({});
 
 function Button({
   variant = "primary",
@@ -26,28 +28,30 @@ function Button({
   ...rest
 }: ButtonProps) {
   return (
-    <TouchableOpacity
-      className={clsx(
-        "h-11 flex-row items-center justify-center rounded-lg gap-2 px-2",
-        {
-          "bg-lime-300": variant === "primary",
-          "bg-zinc-800": variant === "secondary",
-        },
-        className
-      )}
-      activeOpacity={0.7}
-      disabled={isLoading}
-      {...rest}
-    >
-      <ThemeContext.Provider value={{ variant }}>
-        {isLoading ? <ActivityIndicator className="text-lime-950" /> : children}
-      </ThemeContext.Provider>
+    <TouchableOpacity activeOpacity={0.7} disabled={isLoading} {...rest}>
+      <View
+        className={clsx(
+          "h-11 flex-row items-center justify-center rounded-lg gap-2 px-2",
+          {
+            "bg-lime-300": variant === "primary",
+            "bg-zinc-800": variant === "secondary",
+          }
+        )}
+      >
+        <ThemeContext.Provider value={{ variant }}>
+          {isLoading ? (
+            <ActivityIndicator className="text-lime-950" />
+          ) : (
+            children
+          )}
+        </ThemeContext.Provider>
+      </View>
     </TouchableOpacity>
-  )
+  );
 }
 
 function Title({ children }: TextProps) {
-  const { variant } = useContext(ThemeContext)
+  const { variant } = useContext(ThemeContext);
 
   return (
     <Text
@@ -58,9 +62,9 @@ function Title({ children }: TextProps) {
     >
       {children}
     </Text>
-  )
+  );
 }
 
-Button.Title = Title
+Button.Title = Title;
 
-export { Button }
+export { Button };

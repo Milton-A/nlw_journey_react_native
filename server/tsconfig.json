@@ -1,6 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Node 20",
   "_version": "20.1.0",
 
   "compilerOptions": {
@@ -11,13 +10,6 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node16",
-
-    "baseUrl": ".",
-
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "moduleResolution": "node16"
   }
 }
